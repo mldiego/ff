@@ -1,0 +1,87 @@
+[
+  {
+    "matchday": 1,
+    "start_date": "2025-09-24",
+    "end_date": "2025-09-25"
+  },
+  {
+    "matchday": 2,
+    "start_date": "2025-10-02",
+    "end_date": "2025-10-02"
+  },
+  {
+    "matchday": 3,
+    "start_date": "2025-10-23",
+    "end_date": "2025-10-23"
+  },
+  {
+    "matchday": 4,
+    "start_date": "2025-11-06",
+    "end_date": "2025-11-06"
+  },
+  {
+    "matchday": 5,
+    "start_date": "2025-11-27",
+    "end_date": "2025-11-27"
+  },
+  {
+    "matchday": 6,
+    "start_date": "2025-12-11",
+    "end_date": "2025-12-11"
+  },
+  {
+    "matchday": 7,
+    "start_date": "2026-01-21",
+    "end_date": "2026-01-22"
+  },
+  {
+    "matchday": 8,
+    "start_date": "2026-01-29",
+    "end_date": "2026-01-29"
+  },
+  {
+    "matchday": "Playoffs 1",
+    "start_date": "2026-02-19",
+    "end_date": "2026-02-19"
+  },
+  {
+    "matchday": "Playoffs 2",
+    "start_date": "2026-02-26",
+    "end_date": "2026-02-26"
+  },
+  {
+    "matchday": "R16 1",
+    "start_date": "2026-03-12",
+    "end_date": "2026-03-12"
+  },
+  {
+    "matchday": "R16 2",
+    "start_date": "2026-03-19",
+    "end_date": "2026-03-19"
+  },
+  {
+    "matchday": "QF 1",
+    "start_date": "2026-04-09",
+    "end_date": "2026-04-09"
+  },
+  {
+    "matchday": "QF 2",
+    "start_date": "2026-04-16",
+    "end_date": "2026-04-16"
+  },
+  {
+    "matchday": "SF 1",
+    "start_date": "2026-04-30",
+    "end_date": "2026-04-30"
+  },
+  {
+    "matchday": "SF 2",
+    "start_date": "2026-05-07",
+    "end_date": "2026-05-07"
+  },
+  {
+    "matchday": "Final",
+    "start_date": "2026-05-20",
+    "end_date": "2026-05-20"
+  }
+]

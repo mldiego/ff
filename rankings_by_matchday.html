@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fantasy Football Rankings by Matchday</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .chart-container { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        h2 { color: #555; margin-top: 0; }
+        canvas { max-height: 400px; }
+    </style>
+</head>
+<body>
+    <h1>🏆 Fantasy Football Rankings by Matchday</h1>
+    
+    <div class="chart-container">
+        <h2>LaLiga</h2>
+        <canvas id="laliga"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Champions League</h2>
+        <canvas id="champions"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Europa League</h2>
+        <canvas id="uel"></canvas>
+    </div>
+
+    <script>
+        const chartData = {"laliga": {"matchdays": ["MD 23"], "users": {"cmanzanas": {"positions": [16], "points": [3393]}, "Manziyauskas": {"positions": [240], "points": [2901]}, "dieman95": {"positions": [29], "points": [3312]}}}, "champions": {"matchdays": ["MD 8"], "users": {"cmanzanas": {"positions": [134], "points": [1174]}, "Manziyauskas": {"positions": [94], "points": [1229]}, "dieman95": {"positions": [175], "points": [1131]}}}, "uel": {"matchdays": ["MD 8"], "users": {"cmanzanas": {"positions": [15], "points": [1109]}, "Manziyauskas": {"positions": [3], "points": [1179]}, "dieman95": {"positions": [30], "points": [1068]}}}};
+        const users = ["cmanzanas", "Manziyauskas", "dieman95"];
+        const colors = {
+            'cmanzanas': '#FF6384',
+            'Manziyauskas': '#36A2EB',
+            'dieman95': '#FFCE56'
+        };
+
+        function createChart(canvasId, competition) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const datasets = users.map(user => ({
+                label: user,
+                data: chartData[competition].users[user].positions,
+                borderColor: colors[user],
+                backgroundColor: colors[user] + '33',
+                tension: 0.3,
+                fill: false,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData[competition].matchdays,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            reverse: true,
+                            title: { display: true, text: 'Position (lower is better)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Matchday' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const user = context.dataset.label;
+                                    const position = context.parsed.y;
+                                    const points = chartData[competition].users[user].points[context.dataIndex];
+                                    return user + ': Position ' + position + ' (' + points + ' pts)';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        createChart('laliga', 'laliga');
+        createChart('champions', 'champions');
+        createChart('uel', 'uel');
+    </script>
+</body>
+</html>

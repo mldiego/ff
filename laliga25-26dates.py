@@ -1,0 +1,49 @@
+import json
+import csv
+
+laliga_matchdays = [
+    {"matchday": 1, "start_date": "2025-08-15", "end_date": "2025-08-19"},
+    {"matchday": 2, "start_date": "2025-08-22", "end_date": "2025-08-25"},
+    {"matchday": 3, "start_date": "2025-08-31", "end_date": "2025-08-31"},
+    {"matchday": 4, "start_date": "2025-09-14", "end_date": "2025-09-14"},
+    {"matchday": 5, "start_date": "2025-09-21", "end_date": "2025-09-21"},
+    {"matchday": 6, "start_date": "2025-09-24", "end_date": "2025-09-24"},
+    {"matchday": 7, "start_date": "2025-09-28", "end_date": "2025-09-28"},
+    {"matchday": 8, "start_date": "2025-10-05", "end_date": "2025-10-05"},
+    {"matchday": 9, "start_date": "2025-10-19", "end_date": "2025-10-19"},
+    {"matchday": 10, "start_date": "2025-10-26", "end_date": "2025-10-26"},
+    {"matchday": 11, "start_date": "2025-11-02", "end_date": "2025-11-02"},
+    {"matchday": 12, "start_date": "2025-11-09", "end_date": "2025-11-09"},
+    {"matchday": 13, "start_date": "2025-11-23", "end_date": "2025-11-23"},
+    {"matchday": 14, "start_date": "2025-11-30", "end_date": "2025-11-30"},
+    {"matchday": 15, "start_date": "2025-12-07", "end_date": "2025-12-07"},
+    {"matchday": 16, "start_date": "2025-12-14", "end_date": "2025-12-14"},
+    {"matchday": 17, "start_date": "2025-12-21", "end_date": "2025-12-21"},
+    {"matchday": 18, "start_date": "2026-01-04", "end_date": "2026-01-04"},
+    {"matchday": 19, "start_date": "2026-01-11", "end_date": "2026-01-11"},
+    {"matchday": 20, "start_date": "2026-01-18", "end_date": "2026-01-18"},
+    {"matchday": 21, "start_date": "2026-01-25", "end_date": "2026-01-25"},
+    {"matchday": 22, "start_date": "2026-02-01", "end_date": "2026-02-01"},
+    {"matchday": 23, "start_date": "2026-02-08", "end_date": "2026-02-08"},
+    {"matchday": 24, "start_date": "2026-02-15", "end_date": "2026-02-15"},
+    {"matchday": 25, "start_date": "2026-02-22", "end_date": "2026-02-22"},
+    {"matchday": 26, "start_date": "2026-03-01", "end_date": "2026-03-01"},
+    {"matchday": 27, "start_date": "2026-03-08", "end_date": "2026-03-08"},
+    {"matchday": 28, "start_date": "2026-03-15", "end_date": "2026-03-15"},
+    {"matchday": 29, "start_date": "2026-03-22", "end_date": "2026-03-22"},
+    {"matchday": 30, "start_date": "2026-04-05", "end_date": "2026-04-05"},
+    {"matchday": 31, "start_date": "2026-04-12", "end_date": "2026-04-12"},
+    {"matchday": 32, "start_date": "2026-04-19", "end_date": "2026-04-19"},
+    {"matchday": 33, "start_date": "2026-04-22", "end_date": "2026-04-22"},
+    {"matchday": 34, "start_date": "2026-05-03", "end_date": "2026-05-03"},
+    {"matchday": 35, "start_date": "2026-05-10", "end_date": "2026-05-10"},
+    {"matchday": 36, "start_date": "2026-05-13", "end_date": "2026-05-13"},
+    {"matchday": 37, "start_date": "2026-05-17", "end_date": "2026-05-17"},
+    {"matchday": 38, "start_date": "2026-05-24", "end_date": "2026-05-24"}
+]
+
+# Save as JSON
+with open('laliga_matchdays.json', 'w', encoding='utf-8') as f:
+    json.dump(laliga_matchdays, f, indent=2)
+
+print("✅ Created laliga_matchdays.json")

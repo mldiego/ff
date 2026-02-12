@@ -25,6 +25,9 @@ chrome_options.add_argument("window-size=1200x600")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
+# Ensure data directory exists
+os.makedirs('data', exist_ok=True)
+
 def extract_user_competitions(html):
     """Extract current position and points for LaLiga, Champions, and Europa League"""
     soup = BeautifulSoup(html, 'html.parser')
@@ -87,7 +90,7 @@ for user in users:
 driver.quit()
 
 # Read existing CSV
-csv_file = 'user_competitions_history.csv'
+csv_file = 'data/user_competitions_history.csv'
 existing_data = {}
 
 # if os.path.exists(csv_file):
@@ -121,8 +124,8 @@ def add_col_to_csv(csvfile,fileout,new_list):
             csv_writer.writerow(row)
             i += 1 
 
-add_col_to_csv(csv_file,'temporary.csv', col)
+add_col_to_csv(csv_file,'data/temporary.csv', col)
 
 print(f"\n✅ Data saved to {csv_file} with timestamp: {timestamp}")
 
-os.replace('temporary.csv', csv_file)
+os.replace('data/temporary.csv', csv_file)

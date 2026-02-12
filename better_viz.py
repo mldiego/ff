@@ -1,16 +1,14 @@
-# This file will match timestamps to matchdays
-# Aplazados no cuentan, se complica asi
-
 import csv
 import json
 from datetime import datetime
+import os
 
 # Load matchday schedules
-with open('laliga_matchdays.json', 'r') as f:
+with open('config/laliga_matchdays.json', 'r') as f:
     laliga_matchdays = json.load(f)
-with open('champions_matchdays.json', 'r') as f:
+with open('config/champions_matchdays.json', 'r') as f:
     champions_matchdays = json.load(f)
-with open('uel_matchdays.json', 'r') as f:
+with open('config/uel_matchdays.json', 'r') as f:
     uel_matchdays = json.load(f)
 
 matchday_schedules = {
@@ -20,7 +18,7 @@ matchday_schedules = {
 }
 
 # Load CSV data
-with open('user_competitions_history.csv', 'r', encoding='utf-8-sig') as f:
+with open('data/user_competitions_history.csv', 'r', encoding='utf-8-sig') as f:
     reader = csv.DictReader(f)
     data = list(reader)
 
@@ -162,7 +160,8 @@ html = f'''<!DOCTYPE html>
 </body>
 </html>'''
 
-with open('rankings_by_matchday.html', 'w', encoding='utf-8') as f:
+os.makedirs('visualization', exist_ok=True)
+with open('visualization/rankings_by_matchday.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
-print("✅ Visualization created: rankings_by_matchday.html")
+print("✅ Visualization created: visualization/rankings_by_matchday.html")

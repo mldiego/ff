@@ -1,9 +1,10 @@
 import csv
 import json
 from datetime import datetime
+import os
 
 # Read CSV data
-csv_file = 'user_competitions_history.csv'
+csv_file = 'data/user_competitions_history.csv'
 data = []
 
 with open(csv_file, 'r', encoding='utf-8-sig') as f:
@@ -131,7 +132,8 @@ html = f'''<!DOCTYPE html>
 </html>'''
 
 # Save HTML
-with open('rankings_visualization.html', 'w', encoding='utf-8') as f:
+os.makedirs('visualization', exist_ok=True)
+with open('visualization/rankings_visualization.html', 'w', encoding='utf-8') as f:
     f.write(html)
 
-print("✅ Visualization created: rankings_visualization.html")
+print("✅ Visualization created: visualization/rankings_visualization.html")

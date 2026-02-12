@@ -47,14 +47,20 @@ def extract_players_by_competition(html):
                     points_text = span.find('span', class_='m-auto')
                     if points_text:
                         pts = points_text.get_text(strip=True)
-                        if pts.isdigit():
+                        # Handle positive, negative, and dash
+                        if pts == '-':
+                            points = 0
+                        elif pts.lstrip('-').isdigit():
                             points = int(pts)
-                            parent = span.parent
-                            name_span = parent.find('span', style=re.compile(r'color:white.*bottom: 0.*position: absolute'))
-                            if name_span:
-                                name = name_span.get_text(strip=True)
-                                if name:
-                                    comp_data[comp].append({'player': name, 'points': points})
+                        else:
+                            continue
+                        
+                        parent = span.parent
+                        name_span = parent.find('span', style=re.compile(r'color:white.*bottom: 0.*position: absolute'))
+                        if name_span:
+                            name = name_span.get_text(strip=True)
+                            if name:
+                                comp_data[comp].append({'player': name, 'points': points})
     
     return comp_data
 
@@ -164,18 +170,24 @@ for user in users:
                     points_text = span.find('span', class_='m-auto')
                     if points_text:
                         pts = points_text.get_text(strip=True)
-                        if pts.isdigit():
+                        # Handle positive, negative, and dash
+                        if pts == '-':
+                            points = 0
+                        elif pts.lstrip('-').isdigit():
                             points = int(pts)
-                            parent = span.parent
-                            name_span = parent.find('span', style=re.compile(r'color:white.*bottom: 0.*position: absolute'))
-                            if name_span:
-                                name = name_span.get_text(strip=True)
-                                if name:
-                                    if name in laliga_data:
-                                        laliga_data[name]['total_points'] += points
-                                        laliga_data[name]['games_played'] += 1
-                                    else:
-                                        laliga_data[name] = {'total_points': points, 'games_played': 1, 'unique_usage': 1}
+                        else:
+                            continue
+                        
+                        parent = span.parent
+                        name_span = parent.find('span', style=re.compile(r'color:white.*bottom: 0.*position: absolute'))
+                        if name_span:
+                            name = name_span.get_text(strip=True)
+                            if name:
+                                if name in laliga_data:
+                                    laliga_data[name]['total_points'] += points
+                                    laliga_data[name]['games_played'] += 1
+                                else:
+                                    laliga_data[name] = {'total_points': points, 'games_played': 1, 'unique_usage': 1}
     
     save_data(filename, laliga_data)
     print(f"✅ {filename}: Updated with extra competitions")

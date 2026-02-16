@@ -149,7 +149,7 @@ for user in users:
     driver.quit()
     
     # Find the 3 extra LaLiga sections
-    extra_headers = soup.find_all('strong', class_='text-center d-block', string=re.compile(r'(Jornada 19 - LaLiga|Aplazados [12] - LaLiga)'))
+    extra_headers = soup.find_all('strong', class_='text-center d-block', string=re.compile(r'(Aplazados [12] - LaLiga)'))
     
     filename = f"{user}_laliga.csv"
     laliga_data = {}

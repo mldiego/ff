@@ -27,22 +27,19 @@ jobs:
       
       - name: Update player tracker
         run: |
-          cd ff
+          ls
           python point_tracker.py
       
       - name: Update position tracker (for users)
         run: |
-          cd ff
           python new_updates.py
       
       - name: Create dashboard (player point tracker)
         run: |
-          cd ff
           python create_dashboard.py
       
       - name: Create visualizations (classification/points)
         run: |
-          cd ff
           python better_viz.py
       
       - name: Commit and push changes

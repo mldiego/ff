@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import csv
@@ -8,21 +11,55 @@ import time
 import re
 import os
 
-import os
+os.makedirs('data', exist_ok=True)
 
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless=new")
 chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--window-size=1200,600")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-software-rasterizer")
+chrome_options.add_argument("--remote-debugging-port=9222")
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+chrome_options.page_load_strategy = 'eager'  # Don't wait for all resources
 
-# Ensure data directory exists
-os.makedirs('data', exist_ok=True)
+
+def create_driver():
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.set_page_load_timeout(60)
+    driver.set_script_timeout(60)
+    return driver
+
+
+def fetch_page(driver, url, retries=3):
+    for attempt in range(retries):
+        try:
+            print(f"  Attempt {attempt + 1}...")
+            driver.get(url)
+            WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
+            )
+            time.sleep(5)
+            return driver.page_source
+        except Exception as e:
+            print(f"  Attempt {attempt + 1} failed: {e}")
+            if attempt < retries - 1:
+                time.sleep(5)
+                driver.quit()
+                driver = create_driver()
+            else:
+                print(f"  All attempts failed for {url}")
+                return None
+    return None
+
 
 def extract_players_by_competition(html):
     soup = BeautifulSoup(html, 'html.parser')
     comp_data = {'laliga': [], 'champions': [], 'uel': []}
     
-    # Find all competition headers including aplazados
     headers = soup.find_all('strong', string=re.compile(r'Jornada \d+ - (LaLiga|Champions League|Europa League|Aplazados \d+ LaLiga)'))
     
     for header in headers:
@@ -36,7 +73,6 @@ def extract_players_by_competition(html):
         else:
             continue
         
-        # Find players in this section (until next header)
         section = header.find_parent('div', class_='col-12')
         if section:
             parent_section = section.find_parent('div', class_='row')
@@ -47,7 +83,6 @@ def extract_players_by_competition(html):
                     points_text = span.find('span', class_='m-auto')
                     if points_text:
                         pts = points_text.get_text(strip=True)
-                        # Handle positive, negative, and dash
                         if pts == '-':
                             points = 0
                         elif pts.lstrip('-').isdigit():
@@ -64,6 +99,7 @@ def extract_players_by_competition(html):
     
     return comp_data
 
+
 def load_existing(filename):
     filepath = os.path.join('data', filename)
     if not os.path.exists(filepath):
@@ -79,6 +115,7 @@ def load_existing(filename):
             }
     return data
 
+
 def save_data(filename, data):
     filepath = os.path.join('data', filename)
     with open(filepath, 'w', newline='', encoding='utf-8') as f:
@@ -92,29 +129,28 @@ def save_data(filename, data):
                 'unique_usage': stats.get('unique_usage', 1)
             })
 
+
 users = ['cmanzanas', 'manziyauskas', 'dieman95']
 competitions = ['laliga', 'champions', 'uel']
 
+# Use a single driver instance, recreate only on failure
+driver = create_driver()
+
 for user in users:
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    
     url = f"https://www.futbolfantasy.com/usuarios/{user}/participaciones/finalizadas"
     print(f"\nScraping {user}...")
     
-    driver.get(url)
-    time.sleep(20)
+    html = fetch_page(driver, url)
+    if not html:
+        continue
     
-    comp_data = extract_players_by_competition(driver.page_source)
-    driver.quit()
+    comp_data = extract_players_by_competition(html)
     
-    # For each competition, rebuild data from scratch counting all appearances
     for comp in competitions:
         filename = f"{user}_{comp}.csv"
         player_stats = {}
         seen_unique = set()
         
-        # Count every player appearance
         for p in comp_data[comp]:
             name = p['player']
             if name in player_stats:
@@ -127,7 +163,6 @@ for user in users:
                     'unique_usage': 0
                 }
             
-            # Track unique usage
             if name not in seen_unique:
                 seen_unique.add(name)
                 player_stats[name]['unique_usage'] = 1
@@ -135,26 +170,21 @@ for user in users:
         save_data(filename, player_stats)
         print(f"✅ {filename}: {len(player_stats)} unique players, {len(comp_data[comp])} total appearances")
 
-# Add extra LaLiga competitions at the end
+# Extra LaLiga competitions
 print("\nAdding extra LaLiga competitions...")
 for user in users:
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    
     url = f"https://www.futbolfantasy.com/usuarios/{user}/participaciones/finalizadas"
-    driver.get(url)
-    time.sleep(20)
     
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-    driver.quit()
+    html = fetch_page(driver, url)
+    if not html:
+        continue
     
-    # Find the 3 extra LaLiga sections
+    soup = BeautifulSoup(html, 'html.parser')
     extra_headers = soup.find_all('strong', class_='text-center d-block', string=re.compile(r'(Aplazados [12] - LaLiga)'))
     
     filename = f"{user}_laliga.csv"
     laliga_data = {}
     
-    # First load the main LaLiga data we just created
     existing = load_existing(filename)
     for player, stats in existing.items():
         laliga_data[player] = stats.copy()
@@ -170,7 +200,6 @@ for user in users:
                     points_text = span.find('span', class_='m-auto')
                     if points_text:
                         pts = points_text.get_text(strip=True)
-                        # Handle positive, negative, and dash
                         if pts == '-':
                             points = 0
                         elif pts.lstrip('-').isdigit():
@@ -192,4 +221,5 @@ for user in users:
     save_data(filename, laliga_data)
     print(f"✅ {filename}: Updated with extra competitions")
 
+driver.quit()
 print("\n✅ All files updated")

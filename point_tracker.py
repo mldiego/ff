@@ -21,17 +21,33 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--window-size=1200,600")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-software-rasterizer")
-chrome_options.add_argument("--remote-debugging-port=9222")
-chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-chrome_options.page_load_strategy = 'eager'  # Don't wait for all resources
+chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.265 Safari/537.36")
+chrome_options.page_load_strategy = 'eager'
 
 
 def create_driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
-    driver.set_page_load_timeout(60)
-    driver.set_script_timeout(60)
+    driver.set_page_load_timeout(120)
+    driver.set_script_timeout(120)
+    
+    # Block ads/tracking scripts that hang the renderer
+    driver.execute_cdp_cmd('Network.enable', {})
+    driver.execute_cdp_cmd('Network.setBlockedURLs', {'urls': [
+        '*doubleclick.net*',
+        '*googletag*',
+        '*googletagmanager*',
+        '*google-analytics*',
+        '*stpd.cloud*',
+        '*sirdata*',
+        '*prebid*',
+        '*securepubads*',
+        '*gtag/js*',
+    ]})
+    
     return driver
+
 
 
 def fetch_page(driver, url, retries=3):
@@ -39,21 +55,31 @@ def fetch_page(driver, url, retries=3):
         try:
             print(f"  Attempt {attempt + 1}...")
             driver.get(url)
-            WebDriverWait(driver, 30).until(
-                EC.presence_of_element_located((By.TAG_NAME, "body"))
-            )
-            time.sleep(5)
+            # Wait for player content to render
+            try:
+                WebDriverWait(driver, 60).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "span[class*='icon-puntos']"))
+                )
+                print("  ✅ Player content loaded")
+            except:
+                print("  ⚠️ icon-puntos not found, waiting extra...")
+                time.sleep(15)
             return driver.page_source
         except Exception as e:
             print(f"  Attempt {attempt + 1} failed: {e}")
             if attempt < retries - 1:
                 time.sleep(5)
-                driver.quit()
+                try:
+                    driver.quit()
+                except:
+                    pass
                 driver = create_driver()
             else:
                 print(f"  All attempts failed for {url}")
                 return None
     return None
+
+
 
 
 def extract_players_by_competition(html):

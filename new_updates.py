@@ -19,13 +19,33 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--window-size=1200,600")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--disable-software-rasterizer")
+chrome_options.add_argument("--blink-settings=imagesEnabled=false")
 chrome_options.add_argument(
     "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.265 Safari/537.36"
 )
+chrome_options.page_load_strategy = 'eager'
 
-# Initialize webdriver
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
+driver.set_page_load_timeout(120)
+driver.set_script_timeout(120)
+
+# Block ads/tracking scripts that hang the renderer
+driver.execute_cdp_cmd('Network.enable', {})
+driver.execute_cdp_cmd('Network.setBlockedURLs', {'urls': [
+    '*doubleclick.net*',
+    '*googletag*',
+    '*googletagmanager*',
+    '*google-analytics*',
+    '*stpd.cloud*',
+    '*sirdata*',
+    '*prebid*',
+    '*securepubads*',
+    '*gtag/js*',
+]})
+
 
 # Ensure data directory exists
 os.makedirs('data', exist_ok=True)
@@ -65,8 +85,14 @@ def scrape_user(username):
     print(f"\nFetching {username}...")
     
     driver.get(url)
-    time.sleep(2)
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    try:
+        WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "block-element"))
+        )
+        print("  ✅ Content loaded")
+    except:
+        print("  ⚠️ block-element not found, waiting extra...")
+        time.sleep(15)
     
     html = driver.page_source
     data = extract_user_competitions(html)
@@ -76,6 +102,7 @@ def scrape_user(username):
         print(f"  {comp}: Position {stats['position']}, Points {stats['points']}")
     
     return data
+
 
 # Scrape all users
 users = ['cmanzanas', 'Manziyauskas', 'dieman95']

@@ -1,6 +1,7 @@
 player,total_points,games_played,unique_usage
 Aarón,18,1,1
 Adeyemi,18,1,1
+Agirrezabala,11,1,1
 Alex Suárez,4,1,1
 Alexander-Arnold,7,1,1
 Andrés Martín,8,1,1
@@ -12,8 +13,8 @@ Aubameyang,36,2,1
 Ayoze,8,1,1
 Baena,10,1,1
 Bautista,0,1,1
-Bellingham,27,1,1
-Berenguer,56,2,1
+Bellingham,57,2,1
+Berenguer,77,4,1
 Bernal,7,1,1
 Boyé,2,2,1
 Budimir,23,2,1
@@ -21,7 +22,7 @@ Cabanzón,9,1,1
 Cabrera,2,1,1
 Camavinga,2,1,1
 Camello,34,2,1
-Cancelo,10,1,1
+Cancelo,21,2,1
 Carlos Soler,21,1,1
 Caro,-3,1,1
 Carracedo,10,1,1
@@ -50,10 +51,12 @@ Francés,8,1,1
 Freeman,8,1,1
 Fuentes,5,1,1
 Fuster,20,1,1
+Félix Correia,13,1,1
 Gabriel Jesús,19,1,1
+Galán,6,1,1
 Gazzaniga,5,1,1
 Giménez,5,1,1
-Giuliano,2,1,1
+Giuliano,19,2,1
 Gordon,4,1,1
 Grimaldo,0,1,1
 Guido,14,1,1
@@ -63,7 +66,7 @@ Güler,45,2,1
 Herzog,8,1,1
 Hugo González,17,1,1
 Huijsen,14,1,1
-Isco,34,1,1
+Isco,63,2,1
 Isma Ruiz,8,1,1
 Iñigo Vicente,39,2,1
 Javi Guerra,8,1,1
@@ -73,7 +76,7 @@ Jordi Cano,0,1,1
 Juan Díaz,0,1,1
 Kike Salas,23,1,1
 Kirian,6,1,1
-L. Sucic,10,1,1
+L. Sucic,19,2,1
 Larrubia,20,2,1
 Lato,20,1,1
 Lejeune,19,1,1
@@ -84,7 +87,7 @@ M. Llorente,8,1,1
 Marc Roca,14,1,1
 Martín,34,3,1
 Martón,-1,1,1
-Mbappé,20,1,1
+Mbappé,46,2,1
 Melamed,27,1,1
 Miguel,8,1,1
 Mikautadze,26,2,1
@@ -94,8 +97,10 @@ Morcillo,0,1,1
 N. Williams,12,1,1
 Nacho Gil,15,1,1
 Naim,8,1,1
-Natan,5,1,1
+Natan,8,2,1
+Niño,16,1,1
 Noubi,8,1,1
+Oblak,5,1,1
 Olasagasti,9,1,1
 Olmo,22,1,1
 Otero,11,1,1
@@ -107,6 +112,7 @@ Ramos,-2,1,1
 Raphinha,32,1,1
 Raíllo,13,1,1
 Reina,12,1,1
+Revivo,7,1,1
 Riquelme,22,1,1
 Roberto,2,2,1
 Rosas,19,1,1
@@ -114,7 +120,8 @@ Rubén G.,31,3,1
 Sancet,27,2,1
 Satriano,6,1,1
 Soria,22,2,1
-Suazo,2,1,1
+Suazo,27,2,1
+Tchouaméni,10,1,1
 Tejero,0,1,1
 Tenaglia,43,2,1
 Toni Martinez,6,1,1
@@ -123,10 +130,13 @@ Unai Simón,1,1,1
 Valera,8,1,1
 Vallejo,0,1,1
 Valles,60,2,1
+Veiga,10,1,1
 Vlachodimos,18,1,1
+Y. Diomande,24,2,1
+Yamal,38,1,1
 Yeremay,7,1,1
 Yuri,-5,1,1
-Zabiri,18,1,1
+Zabiri,34,2,1
 Álex Muñoz,11,1,1
 Álex Sala,12,1,1
 Ángel Pérez,7,1,1

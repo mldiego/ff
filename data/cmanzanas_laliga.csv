@@ -1,5 +1,6 @@
 player,total_points,games_played,unique_usage
 A. Moreno,7,1,1
+Abde,10,1,1
 Abel Ruiz,12,2,1
 Adeyemi,18,1,1
 Agirrezabala,19,2,1
@@ -12,14 +13,15 @@ Andrés Martín,8,1,1
 Antony,29,3,1
 Arbilla,2,1,1
 Ares,5,1,1
+Arnu,19,1,1
 Arnáiz,17,1,1
 Arribas,26,2,1
-Asprilla,14,2,1
+Asprilla,19,3,1
 Baena,37,2,1
 Barri,9,1,1
 Bautista,0,1,1
-Bellingham,27,1,1
-Berenguer,24,1,1
+Bellingham,57,2,1
+Berenguer,33,2,1
 Boyomo,0,1,1
 Boyé,2,2,1
 Boñar,27,2,1
@@ -31,7 +33,7 @@ Calatrava,3,1,1
 Camara,21,3,1
 Camello,1,1,1
 Canales,10,1,1
-Cancelo,10,1,1
+Cancelo,21,2,1
 Carles Pérez,44,3,1
 Carlos,0,1,1
 Carracedo,0,1,1
@@ -46,16 +48,18 @@ Dadie,35,3,1
 David González,26,2,1
 David Rodríguez,11,1,1
 Diallo,6,2,1
+Dimitrievski,18,1,1
 Dmitrovic,14,1,1
+Eder García,5,1,1
 Edu Expósito,11,1,1
 Embarba,18,2,1
 Enes Ünal,4,1,1
 Eric Garcia,0,1,1
 Espart,16,2,1
 Ezkieta,40,3,1
-Fermín,11,1,1
+Fermín,37,2,1
 Fortuño,19,1,1
-Fran García,26,2,1
+Fran García,39,3,1
 Francés,38,2,1
 Freeman,8,1,1
 Fuoli,0,1,1
@@ -63,20 +67,23 @@ Fuster,12,1,1
 G. Gorosabel,3,1,1
 Gabriel Jesús,19,1,1
 Gallego,8,1,1
+Garri,1,1,1
 Gazzaniga,5,1,1
 Gharbi,16,2,1
-Goti,23,1,1
+Gordon,7,1,1
+Goti,44,2,1
 Grego,5,1,1
 Grimaldo,20,1,1
 Gumbau,19,1,1
 Guruzeta,2,1,1
 Güler,63,3,1
 Hancko,21,1,1
+Herrero,15,1,1
 Hugo López,4,1,1
 Huijsen,14,1,1
 I. Williams,13,1,1
-Iglesias,24,1,1
-Isco,34,1,1
+Iglesias,47,2,1
+Isco,55,2,1
 Izan,14,1,1
 Iñigo Vicente,39,2,1
 Jakobsen,7,1,1
@@ -85,13 +92,16 @@ Javi Muñoz,4,1,1
 Javier Hernández,10,1,1
 Jesé,12,1,1
 John C.,3,1,1
+Jon Martín,13,1,1
 Jorge Pascual,18,1,1
 Kang-In Lee,3,1,1
 Karrikaburu,16,2,1
 Kike Ribes,5,1,1
-Kike Salas,20,2,1
+Kike Salas,60,3,1
 Kuki,10,1,1
-Larrubia,20,2,1
+L. Sucic,9,1,1
+Larrubia,39,3,1
+Lato,1,1,1
 Lejeune,25,2,1
 Llabrés,1,1,1
 Lookman,7,1,1
@@ -100,13 +110,16 @@ Luna,1,1,1
 M. Alonso,6,1,1
 Magunagoitia,16,1,1
 Mario,7,1,1
+Matthys,6,1,1
 Mbappé,20,1,1
 Mellot,12,1,1
 Mikautadze,13,1,1
 Milla,6,1,1
 Miyashiro,6,1,1
 Mojica,42,3,1
+Moleiro,5,1,1
 Morante,10,1,1
+Morey,15,1,1
 N. Williams,12,1,1
 Nacho,3,1,1
 Nacho Gil,15,1,1
@@ -114,6 +127,7 @@ Nacho Vidal,2,1,1
 Naim,28,3,1
 Navarro,22,2,1
 Nieto,25,2,1
+Niño,16,1,1
 Noubi,19,1,1
 Olasagasti,19,2,1
 Olmo,22,1,1
@@ -122,6 +136,8 @@ Oyarzabal,5,1,1
 Pablo Sáenz,0,1,1
 Pablo Torre,29,2,1
 Pape Gueye,6,1,1
+Pedri,13,1,1
+Ponceau,15,1,1
 Pépé,36,2,1
 Raíllo,35,2,1
 Reina,17,1,1
@@ -144,18 +160,20 @@ Suero,23,1,1
 Tasende,-3,1,1
 Tenas,31,2,1
 Terrats,16,1,1
+Unai,3,1,1
 Valera,15,1,1
 Vallejo,0,1,1
-Valverde,5,1,1
+Valverde,24,2,1
 Van de Beek,16,1,1
-Vanat,53,2,1
+Vanat,53,3,1
+Veiga,10,1,1
 Vila,21,1,1
 Vilarrasa,6,1,1
 Villar,27,2,1
 Vinicius,9,1,1
 Vlachodimos,10,1,1
-Y. Diomande,18,1,1
-Yamal,35,1,1
+Y. Diomande,35,2,1
+Yamal,73,2,1
 Yeremay,7,1,1
 Yuri,-5,1,1
 Zabiri,18,1,1
